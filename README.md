@@ -1,35 +1,98 @@
-# Backend code test
 
-Get started by initialising the project as you would normally.
+# Laravel-backend-test
 
-There are migrations to be run, and also a database seeder. Make sure you run those.
+## API Reference
 
-There is an artisan command that has been created to make a user for you to test with (CreateUserCommand).
-This creates a user with the credentials: `test@test.com` / `password`
-
-## There are a few tasks that we would like you to complete.
-
-1. Create an endpoint to create an organisation. A few files will need to be completed for this to work.
-    - Criteria for completion:
-        - Request must be validated.
-        - A user must be logged in to complete the request.
-        - Organisations should be created with trial period of 30 days.
-        - An email should be triggered upon organisation creation that send the logged in user a confirmation. (just a plaintext email with the details is perfect for this test.)
-        - The JSON response should include the user inside of the organisation. Half of this has been completed, you will need to create a transformer for the User and include the data that you believe to be relevant.
-
-2. Fix the code that outputs a collection of organisations
-    - Use the transformer to return the data (hint: transformCollection)
-    - The endpoint should be able to take a http query param of filter, which can be `subbed`, `trial` or `all`. If not included, `all` is the default case.
-    - Abstract the controller logic into the service
+#### Login 
 
 
-## Global acceptance criteria
+```http
+  POST /api/login/
+```
 
-- Code must adhere to PSR12 standards.
-- All datetimes returned must be in unix timestamps.
-- Code should include docblocks.
 
-## Packages installed.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `email`      | `string` | Required |
+| `password` | `string` | Required |
 
-- Laravel Passport
-- Fractal (for transformers)
+
+#### Add new orgnasation
+
+```http
+  POST /api/organisation/
+```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | Required |
+| `owner_user_id` | `number` | Required |
+
+    {
+        data: {
+            organisation: {
+            id: 181,
+            name: sxdegsndsfjmjxd45,
+            owner_user_id: 2,
+            trial_end: 2023-11-27 11:52:34,
+            trial_start_timestamp: 1698493954,
+            trial_end_timestamp: 1701085954,
+            subscribed: 1,
+            created_at: 2023-10-28T11:52:34.000000Z,
+            updated_at: 2023-10-28T11:52:34.000000Z,
+            owner: {
+                id: 2,
+                name: Vernie Powlowski Jr.,
+                email: bonipo1243@zamaneta.com
+            }
+        }
+}
+
+#### Get all orgnazations
+
+```http
+  GET /api/organisation/
+```
+
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `filter`      | `string` | Filters are optional. Example. `trail`, `subbed` |
+
+    {    
+      data : {
+                organisation: [
+                    {
+                        id: 1,
+                        name: Gibson-Bartell,
+                        owner_user_id: 1,
+                        trial_end: 2023-11-20 10:36:03,
+                        trial_start_timestamp: 1697884563,
+                        trial_end_timestamp: 1700476563,
+                        subscribed: 1,
+                        created_at: 2023-10-21T10:36:03.000000Z,
+                        updated_at: 2023-10-21T10:36:03.000000Z,
+                        owner: {
+                        id: 1,
+                        name: Bud Mann,
+                        email: oswaldo97@example.org
+                        }
+                    },
+                    {
+                        id: 172,
+                        name: sxwsdwwerxsdsfxd45,
+                        owner_user_id: 2,
+                        trial_end: 2023-11-27 09:42:47,
+                        trial_start_timestamp: 1698486167,
+                        trial_end_timestamp: 1701078167,
+                        subscribed: 1,
+                        created_at: 2023-10-28T09:42:47.000000Z,
+                        updated_at: 2023-10-28T09:42:47.000000Z,
+                        owner: {
+                            id: 2,
+                            name: Vernie Powlowski Jr.,
+                            email: bonipo1243@zamaneta.com
+                        }
+                    }
+                ]
+            }
+    }
