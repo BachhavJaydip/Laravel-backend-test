@@ -56,7 +56,7 @@
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `filter`      | `string` | Filters are optional. Example. `trail`, `subbed` |
+| `filter`      | `string` | Filters are optional. Example. `trail`, `subbed`, `all` |
 
     {    
       data : {
